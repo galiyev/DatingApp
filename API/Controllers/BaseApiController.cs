@@ -1,6 +1,14 @@
-﻿namespace API.Controllers;
+﻿using API.Data;
+using API.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-public class BaseApiController
+namespace API.Controllers
 {
-    
+    [ApiController]
+    [Route("api/[controller]")]
+    public class BaseApiController : ControllerBase
+    {
+      
+    }
 }
