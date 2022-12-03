@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from "@angular/common/http";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppComponent } from './app.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { NavComponent } from './nav/nav.component';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
+import {NgIf} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -13,11 +15,13 @@ import {BsDropdownModule} from "ngx-bootstrap/dropdown";
     NavComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    NgIf
   ],
   providers: [],
   bootstrap: [AppComponent]
