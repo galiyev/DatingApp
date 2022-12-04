@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
+import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {NgIf} from "@angular/common";
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    NgIf
+    NgIf,
+    BsDropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
