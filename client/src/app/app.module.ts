@@ -18,7 +18,6 @@ import {NgIf} from "@angular/common";
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     FormsModule,
     BsDropdownModule.forRoot(),
     NgIf
