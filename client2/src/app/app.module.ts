@@ -37,7 +37,9 @@ import {Toast, ToastrModule } from 'ngx-toastr';
     NgIf,
     BsDropdownModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({
+      positionClass:"toast-bottom-right"
+    }), // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]
