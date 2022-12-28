@@ -26,17 +26,19 @@ app.UseCors(x => x.AllowAnyHeader()
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+
 // app.MapHub<PresenceHub>("hubs/presence");
 // app.MapHub<MessageHub>("hubs/message");
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
-{
+{   
     var context = services.GetRequiredService<DataContext>();
-    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    // var userManager = services.GetRequiredService<UserManager<AppUser>>();
     // var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync();
-    // await Seed.SeedUsers(userManager, roleManager);
+    await Seed.SeedUsers(context);
 }
 catch (Exception ex)
 {
