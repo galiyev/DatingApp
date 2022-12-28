@@ -12,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddSignalR();
+// builder.Services.AddSw();
+
 // middleware
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
