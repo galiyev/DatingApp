@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import { HomeComponent } from './home/home.component';
@@ -13,6 +13,8 @@ import { MemberDetailsComponent } from './members/member-details/member-details.
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import {SharedModule} from "./_modules/shared/shared.module";
+import { TestErrorComponent } from './errors/test-error/test-error.component';
+import {ErrorInterceptor} from "./_interceptors/error.interceptor";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import {SharedModule} from "./_modules/shared/shared.module";
     MemberListComponent,
     MemberDetailsComponent,
     ListsComponent,
-    MessagesComponent
+    MessagesComponent,
+    TestErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import {SharedModule} from "./_modules/shared/shared.module";
     NgIf,
     SharedModule
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
