@@ -30,7 +30,7 @@ namespace API.Controllers
             return Ok(usersToReturn);
         }
         
-        // api/user/4
+        // api/user/4   
         [HttpGet("{username}")]
         [Authorize]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
