@@ -27,6 +27,8 @@
               "node_modules/bootswatch/dist/united/bootstrap.min.css",
               "node_modules/ngx-toastr/toastr.css", // try adding '../' if you're using angular cli before 6
               "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/ngx-spinner/animations/line-scale-party.css", // ===> Add css file based on your animation name(here it's "ball-scale-multiple")
+
               "src/styles.css"
             ],
             "scripts": []
@@ -97,6 +99,8 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-toastr/toastr.css" ,// try adding '../' if you're using angular cli before 6
               "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/ngx-spinner/animations/line-scale-party.css", // ===> Add css file based on your animation name(here it's "ball-scale-multiple")
+
               "src/styles.css"
             ],
             "scripts": []
