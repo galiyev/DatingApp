@@ -6,6 +6,8 @@ import {User} from "../../_model/user";
 import {AccountService} from "../../_services/account.service";
 import {take} from "rxjs";
 import {iterator} from "rxjs/internal/symbol/iterator";
+import {Photo} from "../../_model/photo";
+import {MembersService} from "../../_services/members.service";
 
 @Component({
   selector: 'app-photo-editor',
@@ -19,7 +21,7 @@ export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
   user:User | undefined;
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService, private memberService: MembersService) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => {
           if (user) this.user = user
@@ -35,6 +37,21 @@ export class PhotoEditorComponent implements OnInit {
     this.hasBaseDropZoneOver = e;
   }
 
+  setMainPhoto(photo: Photo){
+     this.memberService.setMainPhoto(photo.id).subscribe({
+       next: () => {
+          if(this.user && this.member){
+            this.user.photoUrl = photo.url;
+            this.accountService.setCurrentUser(this.user);
+            this.member.photoUrl = photo.url;
+            this.member.photos.forEach(p=>{
+                if(p.isMain) p.isMain = false;
+                if(p.id == photo.id) p.isMain = true;
+            })
+          }
+       }}
+     )
+  }
 
   initializeUploader(){
     this.uploader = new FileUploader({
@@ -44,7 +61,7 @@ export class PhotoEditorComponent implements OnInit {
        allowedFileType:['image'],
        removeAfterUpload:true,
        autoUpload:false,
-       maxFileSize:10*1024*1024;
+       maxFileSize:10*1024*1024
     });
 
     this.uploader.onAfterAddingFile = (file)=>{
