@@ -42,7 +42,7 @@ namespace API.Controllers
         [Authorize]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
-            var user = await _userRepository.GetMemberAsync(username);
+                var user = await _userRepository.GetMemberAsync(username);
             return user;
         }
 
@@ -57,7 +57,7 @@ namespace API.Controllers
             if (await _userRepository.SaveAllAsync()) return NoContent();
 
             return BadRequest("Failed to update user");
-        }
+        } 
 
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
