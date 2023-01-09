@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {Member} from "../../_model/member";
+import {Member} from "../../_models/member";
 
 @Component({
   selector: 'app-member-card',

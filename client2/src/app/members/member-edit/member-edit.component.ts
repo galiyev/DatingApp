@@ -1,6 +1,6 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {Member} from "../../_model/member";
-import {User} from "../../_model/user";
+import {Member} from "../../_models/member";
+import {User} from "../../_models/user";
 import {AccountService} from "../../_services/account.service";
 import {MembersService} from "../../_services/members.service";
 import {take} from "rxjs";
