@@ -13,19 +13,31 @@ import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from "@kolkov/n
   styleUrls: ['./member-details.component.css']
 })
 export class MemberDetailsComponent implements OnInit {
-  @ViewChild('memberTabs') memberTabs?: TabsetComponent;
+  @ViewChild('memberTabs',{static: true}) memberTabs?: TabsetComponent;
 
-  member:Member | undefined
+  member:Member = {} as Member;
   galleryOptions: NgxGalleryOptions[]  = [];
   galleryImages: NgxGalleryImage[] = [];
   activeTab?: TabDirective;
   messages: Message[] = [];
 
-  constructor(private memberService:MembersService, private  messagesService: MessageService, private route:ActivatedRoute) { }
+  constructor(private memberService:MembersService,
+              private  messagesService: MessageService, private route:ActivatedRoute) { }
 
 
   ngOnInit(): void {
-    this.loadMember();
+    //this.loadMember();
+
+    this.route.data.subscribe({
+      next: data => this.member = data['member']
+    })
+
+    this.route.queryParams.subscribe({
+       next: params =>{
+          params['tab'] && this.selectTab(params['tab'])
+       }
+    })
+
     this.galleryOptions = [
       {
         width:'500px',
@@ -36,16 +48,25 @@ export class MemberDetailsComponent implements OnInit {
         preview: false
       }
     ];
+
+    this.galleryImages = this.getImages();
+
   }
 
-  loadMember(){
-    var username = this.route.snapshot.paramMap.get('username');
-    if(!username) return;
-    this.memberService.getMember(username).subscribe({
-      next: member => {this.member = member;
-        this.galleryImages = this.getImages();
-      }
-    })
+  // loadMember(){
+  //   var username = this.route.snapshot.paramMap.get('username');
+  //   if(!username) return;
+  //   this.memberService.getMember(username).subscribe({
+  //     next: member => {this.member = member;
+  //       this.galleryImages = this.getImages();
+  //     }
+  //   })
+  // }
+
+  selectTab(heading: string){
+    if(this.memberTabs){
+      this.memberTabs.tabs.find(x=>x.heading == heading)!.active = true
+    }
   }
 
   loadMessages(){
