@@ -13,14 +13,14 @@ builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddSignalR();
-// builder.Services.AddSw();
 
 // middleware
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseCors(x => x.AllowAnyHeader()
+app.UseCors(x => x
+    .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
     .WithOrigins("http://localhost:4200"));
@@ -28,7 +28,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
-
+app.MapHub<MessageHub>("hubs/message");
 
 // app.MapHub<PresenceHub>("hubs/presence");
 // app.MapHub<MessageHub>("hubs/message");
@@ -41,6 +41,9 @@ try
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 
     await context.Database.MigrateAsync();
+    // await context.Database.ExecuteSqlRawAsync("TRUNCATE TABLE [Connections]");
+    
+    await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
     await Seed.SeedUsers(userManager, roleManager);
 }
 catch (Exception ex)
