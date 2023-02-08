@@ -18,10 +18,12 @@ public static class ApplicationServiceExtensions
             options.UseSqlite((config.GetConnectionString("DefaultConnection")));
         });
         services.AddCors();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<ILikesRepository, LikesRepository>();
-        services.AddScoped<IMessagesRepository, MessagesRepository>();
-        
+        // services.AddScoped<IUserRepository, UserRepository>();
+        // services.AddScoped<ILikesRepository, LikesRepository>();
+        // services.AddScoped<IMessagesRepository, MessagesRepository>();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         services.AddScoped<IPhotoService, PhotoService>();

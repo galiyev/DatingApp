@@ -16,7 +16,7 @@ export class NavComponent implements OnInit {
   loggedIn = false;
   //currentUser$:Observable<User | null> = of(null);
 
-  constructor(public accountService:AccountService, 
+  constructor(public accountService:AccountService,
               private router:Router,
               private toastr:ToastrService) { }
 
@@ -39,11 +39,10 @@ export class NavComponent implements OnInit {
 
   login(){
     this.accountService.login(this.model).subscribe({
-      next: response => {
-        this.router.navigateByUrl('/members')
-        // this.memberService.resetUserParams();
+      next:  _=> {
+        this.router.navigateByUrl('/members');
+        this.model = {};
       }
-      // error: error => this.toastr.error(error.error)
     });
   }
 }
