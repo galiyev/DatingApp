@@ -18,10 +18,20 @@ public class UnitOfWork:IUnitOfWork
     public IUserRepository UserRepository => new UserRepository(_dataContext, _mapper);
     public IMessagesRepository MessagesRepository => new MessagesRepository(_dataContext, _mapper);
     public ILikesRepository LikesRepository => new LikesRepository(_dataContext);
-    
+
+    public IPhotoRepository PhotoRepository => new PhotosRepository(_dataContext, _mapper);
+
     public async Task<bool> Complete()
     {
-        return await _dataContext.SaveChangesAsync() > 0;
+        try
+        {
+            return await _dataContext.SaveChangesAsync() > 0;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     public bool HasChanges()

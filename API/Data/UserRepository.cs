@@ -25,11 +25,6 @@ public class UserRepository : IUserRepository
         _context.Entry(user).State = EntityState.Modified;
     }
 
-    // public async Task<bool> SaveAllAsync()
-    // {
-    //     return await this._context.SaveChangesAsync()>0;
-    // }
-
     public async Task<IEnumerable<AppUser>> GetUsersAsync()
     {
         return await _context.Users
@@ -47,7 +42,7 @@ public class UserRepository : IUserRepository
     {
         
         return await _context.Users
-            .Include(x=>x.Photos)
+            .Include(x=>x.Photos.Where(a=>a.IsApproved))
             .SingleOrDefaultAsync(x=>x.UserName==username);
     }
 
@@ -64,7 +59,7 @@ public class UserRepository : IUserRepository
         var query = _context.Users.AsQueryable();
         query = query.Where(u => u.UserName != userParams.CurrentUserName);
         query = query.Where(u => u.Gender == userParams.Gender);
-
+        
         var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MaxAge - 1));
         var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MinAge));
 
@@ -77,7 +72,7 @@ public class UserRepository : IUserRepository
         };
         
         return await PagedList<MemberDto>.CreateAsync(query.AsNoTracking()
-            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider),
+            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider),   
             userParams.PageNumber, 
             userParams.PageSize);
     }

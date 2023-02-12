@@ -111,7 +111,7 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
   private getImages() {
     if(!this.member) return [];
     const imageUrls = [];
-    for (const photo of this.member.photos){
+    for (const photo of this.member.photos.filter(x=>x.isApproved)){
       imageUrls.push({
           small: photo.url,
           medium:photo.url,

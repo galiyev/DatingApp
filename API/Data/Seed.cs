@@ -17,7 +17,7 @@ public class Seed
         var useeData = await File.ReadAllTextAsync("Data/UserSeedData.json");
         var options = new JsonSerializerOptions()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
         };
 
         var users = JsonSerializer.Deserialize<List<AppUser>>(useeData);
@@ -38,6 +38,10 @@ public class Seed
         foreach (var user in users)
         {
             user.UserName = user.UserName.ToLower();
+            foreach (var photo in user.Photos)
+            {
+                photo.IsApproved = photo.IsMain;
+            }
             await userManager.CreateAsync(user, "Pa$$w0rd");
             await userManager.AddToRoleAsync(user, "Member");
         }
